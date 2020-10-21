@@ -47,7 +47,19 @@ export default function GrantsTable() {
       setLoading(false);
     }
     handleGetData();
+    timeout(12000, handleGetData())
+      .then(data => console.log(data))
+      .catch(err => console.error(err));
   }, [page, limit]);
+
+  function timeout(ms, promise) {
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        reject(new Error("timeout"))
+      }, ms)
+      promise.then(resolve, reject)
+    })
+  }
 
   const handleBuildData = async (e) => {
     try {
@@ -61,6 +73,7 @@ export default function GrantsTable() {
       setRows(data);
       setLoading(false);
     } catch (e) {
+      console.log(e);
       setLoading(false);
     }
   }

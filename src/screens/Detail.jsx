@@ -37,8 +37,21 @@ export default function Detail() {
         console.log(e);
       }
     }
-    handleGetData();
+    // handleGetData();
+    timeout(10000, handleGetData())
+      .then(data => console.log(data))
+      .catch(err => console.error(err));
+
   }, [oppId]);
+
+  function timeout(ms, promise) {
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        reject(new Error("timeout"))
+      }, ms)
+      promise.then(resolve, reject)
+    })
+  }
 
   const _row = (title, value, full) => {
     return <Grid item lg={full ? 12 : 6} xl={full ? 12 : 6}>
